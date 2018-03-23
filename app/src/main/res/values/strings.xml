@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SmsToEmail</string>
+    <string name="settings">Settings</string>
+    <string name="sendServer">Send Server:</string>
+    <string name="sendEmail">Send Email</string>
+    <string name="password">Password</string>
+    <string name="maxRetry">Max Retry Times</string>
+    <string name="retryTimeInterval">Retry TimeInterval</string>
+    <string name="test">Test</string>
+    <string name="save">Save</string>
+    <string name="testCont">This is a Test mail</string>
+    <string name="sendedTest">Test email is sended</string>
+    <string name="saved">Settings is saved</string>
+    <string name="batteryStatus">BATTERY_STATUS</string>
+    <string name="batteryLow">ACTION_BATTERY_LOW</string>
+    <string name="batteryOkay">ACTION_BATTERY_OKAY</string>
+    <string name="powerConnected">ACTION_POWER_CONNECTED</string>
+    <string name="powerDisConnected">ACTION_POWER_DISCONNECTED</string>
+    <string name="from">from:</string>
+    <string name="content">content:</string>
+    <string name="smsTitle">SMS</string>
+    <string name="sendedFailed">send failed check the eMail config</string>
+    <string name="maxCount">Max count of sms</string>
+    <string name="message">Message</string>
+</resources>

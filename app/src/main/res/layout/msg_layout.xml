@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/src_margin"
+    android:layout_marginLeft="@dimen/src_margin"
+    android:layout_marginRight="@dimen/src_margin"
+    android:background="@drawable/border"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/src_margin"
+        android:layout_marginRight="@dimen/src_margin"
+        android:layout_marginTop="@dimen/src_margin"
+        android:background="@drawable/botoom_border">
+
+        <TextView
+            android:id="@+id/texCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="1/10"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="2018/02/26"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/src_margin"
+        android:layout_marginRight="@dimen/src_margin"
+        android:layout_marginTop="@dimen/src_margin"
+        android:background="@drawable/botoom_border">
+
+        <TextView
+            android:id="@+id/texForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="88888888888"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="18:00"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/texCont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/src_margin"
+        android:layout_marginLeft="@dimen/src_margin"
+        android:layout_marginRight="@dimen/src_margin"
+        android:text="TextView"
+        android:textSize="22sp" />
+</LinearLayout>

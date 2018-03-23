@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">短信转发</string>
+    <string name="settings">设置</string>
+    <string name="sendServer">发送服务器</string>
+    <string name="sendEmail">发送邮箱</string>
+    <string name="password">密码</string>
+    <string name="maxRetry">重试次数</string>
+    <string name="retryTimeInterval">重试间隔</string>
+    <string name="test">测试</string>
+    <string name="save">保存</string>
+    <string name="testCont">这是一封测试邮件</string>
+    <string name="sendedTest">测试邮件已发送</string>
+    <string name="saved">设置选项已保存</string>
+    <string name="batteryStatus">电源状态</string>
+    <string name="batteryLow">电量低，请及时充电</string>
+    <string name="batteryOkay">电池已充满，请断开充电器</string>
+    <string name="powerConnected">已接通电源，充电中</string>
+    <string name="powerDisConnected">电源已断开</string>
+    <string name="from">来自:</string>
+    <string name="content">内容:</string>
+    <string name="smsTitle">短信</string>
+    <string name="sendedFailed">发送失败，请检查邮箱设置是否正确</string>
+    <string name="maxCount">最大短信数量</string>
+    <string name="message">消息</string>
+</resources>
