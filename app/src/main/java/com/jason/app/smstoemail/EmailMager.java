@@ -28,6 +28,7 @@ public class EmailMager {
     private int mRetryTime = 3000;
     //
     private String mSendEmail = "xxxxx@163.com";
+    private String mToEmail="xxxx@163.com";
     private String mPassword = "xxxxx";
     private String mSendServer = "smtp.163.com";
     private boolean mDebug=false;
@@ -131,7 +132,7 @@ public class EmailMager {
             Session session = Session.getInstance(properties, getAuthenticator());
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress(mSendEmail));
-            InternetAddress[] addresses = new InternetAddress[]{new InternetAddress(mSendEmail)};
+            InternetAddress[] addresses = new InternetAddress[]{new InternetAddress(mToEmail)};
             mimeMessage.setRecipients(Message.RecipientType.TO, addresses);
             mimeMessage.setSubject(title);
             MimeBodyPart textPart = new MimeBodyPart();
@@ -194,6 +195,15 @@ public class EmailMager {
 
     public void setSendEmail(String mSendEmail) {
         this.mSendEmail = mSendEmail;
+    }
+
+
+    public String getToEmail() {
+        return mToEmail;
+    }
+
+    public void setToEmail(String mToEmail) {
+        this.mToEmail = mToEmail;
     }
 
     public String getPassword() {

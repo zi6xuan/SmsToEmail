@@ -22,4 +22,5 @@
     <string name="sendedFailed">send failed check the eMail config</string>
     <string name="maxCount">Max count of sms</string>
     <string name="message">Message</string>
+    <string name="toEmail">To Email</string>
 </resources>

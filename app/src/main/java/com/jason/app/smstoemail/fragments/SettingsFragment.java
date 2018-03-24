@@ -22,6 +22,7 @@ import com.jason.app.smstoemail.utils.AndrUtils;
 public class SettingsFragment extends NFragment {
 
     private String mSendEmail;
+    private String mToEmail;
     private String mSendServer;
     private String mPassword;
     private int mMaxRetry = 50;
@@ -31,6 +32,7 @@ public class SettingsFragment extends NFragment {
     private TextView mTexPassword;
     private TextView mTexServer;
     private TextView mTexEmail;
+    private TextView mTexToEmail;
     private TextView mTexMaxCount;
     private int mMaxCount = 1000;
 
@@ -58,6 +60,8 @@ public class SettingsFragment extends NFragment {
         //
         mTexEmail = this.getActivity().findViewById(R.id.sendEmail);
         mTexEmail.setText(mSendEmail);
+        mTexToEmail = this.getActivity().findViewById(R.id.toEmail);
+        mTexToEmail.setText(mToEmail);
         mTexServer = this.getActivity().findViewById(R.id.sendServer);
         mTexServer.setText(mSendServer);
         mTexPassword = this.getActivity().findViewById(R.id.password);
@@ -85,6 +89,7 @@ public class SettingsFragment extends NFragment {
             @Override
             public void onClick(View v) {
                 mSendEmail = mTexEmail.getText().toString();
+                mToEmail = mTexToEmail.getText().toString();
                 mSendServer = mTexServer.getText().toString();
                 mPassword = mTexPassword.getText().toString();
                 mMaxRetry = Integer.parseInt(mTexMaxRetry.getText().toString());
@@ -94,6 +99,7 @@ public class SettingsFragment extends NFragment {
                 EmailMager inst = EmailMager.getInstance();
                 if (inst != null) {
                     inst.setSendEmail(mSendEmail);
+                    inst.setToEmail(mToEmail);
                     inst.setSendServer(mSendServer);
                     inst.setPassword(mPassword);
                     inst.setMaxRetry(mMaxRetry);
@@ -112,6 +118,7 @@ public class SettingsFragment extends NFragment {
             SettingsFragment sf = new SettingsFragment();
             sf.load(con);
             inst.setSendEmail(sf.mSendEmail);
+            inst.setToEmail(sf.mToEmail);
             inst.setSendServer(sf.mSendServer);
             inst.setPassword(sf.mPassword);
             inst.setMaxRetry(sf.mMaxRetry);
@@ -123,6 +130,7 @@ public class SettingsFragment extends NFragment {
     private void load(Context con) {
         SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
         mSendEmail = spf.getString("SendEmail", mSendEmail);
+        mToEmail = spf.getString("ToEmail", mToEmail);
         mSendServer = spf.getString("SendServer", mSendServer);
         mPassword = spf.getString("Password", mPassword);
         mMaxRetry = spf.getInt("MaxRetry", mMaxRetry);
@@ -134,6 +142,7 @@ public class SettingsFragment extends NFragment {
         SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         editor.putString("SendEmail", mSendEmail);
+        editor.putString("ToEmail", mToEmail);
         editor.putString("SendServer", mSendServer);
         editor.putString("Password", mPassword);
         editor.putInt("MaxRetry", mMaxRetry);
