@@ -1,4 +1,4 @@
-# SmsToEmail
+# SmsToEmail &middot; [![GooglePlay](https://facebook.github.io/react-native/)]
 Android 转发短信到指定Email(Android Forward SMS to Specified Email)
 
 **本程序支持一下功能：**
