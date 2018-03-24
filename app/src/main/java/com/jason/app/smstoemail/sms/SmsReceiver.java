@@ -90,6 +90,7 @@ public class SmsReceiver extends BroadcastReceiver {
             if (isSuc) {
                 Log.i(TAG, "sended");
             } else {
+                sendTips(context.getString(R.string.sendedFailed));
                 Log.i(TAG, context.getString(R.string.sendedFailed));
             }
         }
@@ -99,6 +100,12 @@ public class SmsReceiver extends BroadcastReceiver {
     private void sendToView(SmsMessage s) {
         if (MainSmsActivity.Inst() != null) {
             MainSmsActivity.Inst().addSms(new SmsMsg(s));
+        }
+    }
+
+    private void sendTips(String s) {
+        if (MainSmsActivity.Inst() != null) {
+            MainSmsActivity.Inst().sendTips(s);
         }
     }
 }

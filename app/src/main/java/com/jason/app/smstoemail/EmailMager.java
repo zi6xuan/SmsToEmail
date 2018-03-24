@@ -142,7 +142,7 @@ public class EmailMager {
             mimeMessage.setContent(multipart);
             mimeMessage.setSentDate(new Date());
             return mimeMessage;
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
