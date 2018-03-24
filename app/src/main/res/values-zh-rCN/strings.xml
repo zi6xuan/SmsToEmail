@@ -2,7 +2,7 @@
     <string name="app_name">短信转发</string>
     <string name="settings">设置</string>
     <string name="sendServer">发送服务器</string>
-    <string name="sendEmail">发送邮箱</string>
+    <string name="sendEmail">发件邮箱</string>
     <string name="password">密码</string>
     <string name="maxRetry">重试次数</string>
     <string name="retryTimeInterval">重试间隔</string>
@@ -22,5 +22,5 @@
     <string name="sendedFailed">发送失败，请检查邮箱设置是否正确</string>
     <string name="maxCount">最大短信数量</string>
     <string name="message">消息</string>
-    <string name="toEmail">To Email</string>
+    <string name="toEmail">送达邮箱</string>
 </resources>
