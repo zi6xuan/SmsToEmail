@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 
 import com.jason.app.smstoemail.R;
 import com.jason.app.smstoemail.sms.SmsLocalManager;
+import com.jason.app.smstoemail.utils.AndrUtils;
 import com.jason.app.smstoemail.views.SmsMsg;
 import com.jason.app.smstoemail.views.SmsView;
 
@@ -37,7 +38,7 @@ public class MessageFragment extends NFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(!AndrUtils.isAssetsConfig());
         return inflater.inflate(R.layout.fragment_message, container, false);
     }
 

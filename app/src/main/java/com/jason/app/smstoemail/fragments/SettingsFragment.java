@@ -42,7 +42,7 @@ public class SettingsFragment extends NFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(!AndrUtils.isAssetsConfig());
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -56,7 +56,7 @@ public class SettingsFragment extends NFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) this.getActivity()).getSupportActionBar().setTitle(R.string.settings);
-        load(SettingsFragment.this.getContext());
+        load(this.getContext());
         //
         mTexEmail = this.getActivity().findViewById(R.id.sendEmail);
         mTexEmail.setText(mSendEmail);
@@ -128,26 +128,38 @@ public class SettingsFragment extends NFragment {
     }
 
     private void load(Context con) {
-        SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
-        mSendEmail = spf.getString("SendEmail", mSendEmail);
-        mToEmail = spf.getString("ToEmail", mToEmail);
-        mSendServer = spf.getString("SendServer", mSendServer);
-        mPassword = spf.getString("Password", mPassword);
-        mMaxRetry = spf.getInt("MaxRetry", mMaxRetry);
-        mRetryTimeInterval = spf.getInt("RetryTimeInterval", mRetryTimeInterval);
-        mMaxCount = spf.getInt("MaxCount", mMaxCount);
+        if (AndrUtils.isAssetsConfig()) {
+            mSendEmail = AndrUtils.getConfigIni("mail", "SendEmail");
+            mToEmail = AndrUtils.getConfigIni("mail", "ToEmail");
+            mSendServer = AndrUtils.getConfigIni("mail", "SendServer");
+            mPassword = AndrUtils.getConfigIni("mail", "Password");
+            mMaxRetry = Integer.parseInt(AndrUtils.getConfigIni("normal", "MaxRetry"));
+            mRetryTimeInterval = Integer.parseInt(AndrUtils.getConfigIni("normal", "RetryTimeInterval"));
+            mMaxCount = Integer.parseInt(AndrUtils.getConfigIni("normal", "MaxCount"));
+        } else {
+            SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
+            mSendEmail = spf.getString("SendEmail", mSendEmail);
+            mToEmail = spf.getString("ToEmail", mToEmail);
+            mSendServer = spf.getString("SendServer", mSendServer);
+            mPassword = spf.getString("Password", mPassword);
+            mMaxRetry = spf.getInt("MaxRetry", mMaxRetry);
+            mRetryTimeInterval = spf.getInt("RetryTimeInterval", mRetryTimeInterval);
+            mMaxCount = spf.getInt("MaxCount", mMaxCount);
+        }
     }
 
     private void save(Context con) {
-        SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = spf.edit();
-        editor.putString("SendEmail", mSendEmail);
-        editor.putString("ToEmail", mToEmail);
-        editor.putString("SendServer", mSendServer);
-        editor.putString("Password", mPassword);
-        editor.putInt("MaxRetry", mMaxRetry);
-        editor.putInt("RetryTimeInterval", mRetryTimeInterval);
-        editor.putInt("MaxCount", mMaxCount);
-        editor.apply();
+        if (!AndrUtils.isAssetsConfig()) {
+            SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = spf.edit();
+            editor.putString("SendEmail", mSendEmail);
+            editor.putString("ToEmail", mToEmail);
+            editor.putString("SendServer", mSendServer);
+            editor.putString("Password", mPassword);
+            editor.putInt("MaxRetry", mMaxRetry);
+            editor.putInt("RetryTimeInterval", mRetryTimeInterval);
+            editor.putInt("MaxCount", mMaxCount);
+            editor.apply();
+        }
     }
 }

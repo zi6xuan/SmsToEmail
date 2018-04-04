@@ -30,6 +30,7 @@ import com.jason.app.smstoemail.MainSmsActivity;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -100,11 +101,26 @@ public class AndrUtils {
     public static byte[] getBytesFromFile(Context con, String file) {
         try {
             FileInputStream fis = new FileInputStream(new File(con.getFilesDir(), file));
-            byte[] buf = new byte[4096];
-            int len = fis.read(buf);
+            byte[] newbuf=getBytesFromFile(fis);
             fis.close();
-            byte[] newbuf = new byte[len];
-            System.arraycopy(buf, 0, newbuf, 0, len);
+            return newbuf;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] getBytesFromFile(InputStream is) {
+        try {
+            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            byte[] buf = new byte[512];
+            int len = 0;
+            while((len = is.read(buf))>0){
+                baos.write(buf,0,len);
+            }
+            baos.flush();
+            byte[] newbuf=baos.toByteArray();
+            baos.close();
             return newbuf;
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,15 +226,21 @@ public class AndrUtils {
             }
         }
     }
-
+public static boolean isAssetsConfig(){
+    try {
+        return mContext.getAssets().open("settings.json")!=null;
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
     public static String getConfigIni(String model, String key) {
         if (mConfig == null) {
             try {
-                InputStream is = mContext.getAssets().open("config.json");
-                byte[] buf = new byte[512];
-                int len = is.read(buf);
+                InputStream is = mContext.getAssets().open("settings.json");
+                byte[] buf = getBytesFromFile(is);
                 is.close();
-                String text = new String(buf, 0, len, "UTF-8");
+                String text = new String(buf, "UTF-8");
                 mConfig = new JSONObject(text);
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage());

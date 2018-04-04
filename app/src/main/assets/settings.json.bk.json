@@ -1,0 +1,13 @@
+{
+  "mail": {
+    "SendEmail": "xxx@163.com",
+    "ToEmail": "xxx@163.com",
+    "SendServer": "smtp.163.com",
+    "Password": "xxxx"
+  },
+  "normal": {
+    "MaxRetry": "10",
+    "RetryTimeInterval": "30000",
+    "MaxCount": "1000"
+  }
+}
