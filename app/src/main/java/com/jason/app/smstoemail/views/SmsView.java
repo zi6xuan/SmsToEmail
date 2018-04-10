@@ -15,7 +15,7 @@ import java.util.Locale;
 public class SmsView extends RelativeLayout {
 
     private SmsMsg mMsg = null;
-    private SimpleDateFormat sdfYYYYMMDD = new SimpleDateFormat("YYYY/MM/dd", Locale.getDefault());
+    private SimpleDateFormat sdfYYYYMMDD = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     private SimpleDateFormat sdfHHmm = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
     public SmsView(Context context, SmsMsg msg, int index) {

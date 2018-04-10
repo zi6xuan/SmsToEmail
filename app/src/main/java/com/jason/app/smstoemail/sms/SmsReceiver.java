@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class SmsReceiver extends BroadcastReceiver {
     private static final String TAG = "SmsReceiver";
-    private static SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss", Locale.getDefault());
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
 
     @Override
     public void onReceive(Context context, Intent intent) {
