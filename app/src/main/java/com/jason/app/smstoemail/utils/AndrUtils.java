@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AndrUtils {
     private static final String TAG = "AndrUtils";
@@ -101,7 +102,7 @@ public class AndrUtils {
     public static byte[] getBytesFromFile(Context con, String file) {
         try {
             FileInputStream fis = new FileInputStream(new File(con.getFilesDir(), file));
-            byte[] newbuf=getBytesFromFile(fis);
+            byte[] newbuf = getBytesFromFile(fis);
             fis.close();
             return newbuf;
         } catch (Exception e) {
@@ -112,14 +113,14 @@ public class AndrUtils {
 
     public static byte[] getBytesFromFile(InputStream is) {
         try {
-            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buf = new byte[512];
             int len = 0;
-            while((len = is.read(buf))>0){
-                baos.write(buf,0,len);
+            while ((len = is.read(buf)) > 0) {
+                baos.write(buf, 0, len);
             }
             baos.flush();
-            byte[] newbuf=baos.toByteArray();
+            byte[] newbuf = baos.toByteArray();
             baos.close();
             return newbuf;
         } catch (Exception e) {
@@ -226,18 +227,20 @@ public class AndrUtils {
             }
         }
     }
-public static boolean isAssetsConfig(){
-    try {
-        return mContext.getAssets().open("settings.json")!=null;
-    } catch (IOException e) {
-        e.printStackTrace();
+
+    public static boolean isAssetsConfig(Context con) {
+        try {
+            return con.getAssets().open("settings.json") != null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
-    return false;
-}
-    public static String getConfigIni(String model, String key) {
+
+    public static String getConfigIni(Context con,String model, String key) {
         if (mConfig == null) {
             try {
-                InputStream is = mContext.getAssets().open("settings.json");
+                InputStream is = con.getAssets().open("settings.json");
                 byte[] buf = getBytesFromFile(is);
                 is.close();
                 String text = new String(buf, "UTF-8");

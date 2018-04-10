@@ -42,7 +42,7 @@ public class SettingsFragment extends NFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(!AndrUtils.isAssetsConfig());
+        setHasOptionsMenu(!AndrUtils.isAssetsConfig(this.getActivity()));
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -128,14 +128,14 @@ public class SettingsFragment extends NFragment {
     }
 
     private void load(Context con) {
-        if (AndrUtils.isAssetsConfig()) {
-            mSendEmail = AndrUtils.getConfigIni("mail", "SendEmail");
-            mToEmail = AndrUtils.getConfigIni("mail", "ToEmail");
-            mSendServer = AndrUtils.getConfigIni("mail", "SendServer");
-            mPassword = AndrUtils.getConfigIni("mail", "Password");
-            mMaxRetry = Integer.parseInt(AndrUtils.getConfigIni("normal", "MaxRetry"));
-            mRetryTimeInterval = Integer.parseInt(AndrUtils.getConfigIni("normal", "RetryTimeInterval"));
-            mMaxCount = Integer.parseInt(AndrUtils.getConfigIni("normal", "MaxCount"));
+        if (AndrUtils.isAssetsConfig(con)) {
+            mSendEmail = AndrUtils.getConfigIni(con, "mail", "SendEmail");
+            mToEmail = AndrUtils.getConfigIni(con, "mail", "ToEmail");
+            mSendServer = AndrUtils.getConfigIni(con, "mail", "SendServer");
+            mPassword = AndrUtils.getConfigIni(con, "mail", "Password");
+            mMaxRetry = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "MaxRetry"));
+            mRetryTimeInterval = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "RetryTimeInterval"));
+            mMaxCount = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "MaxCount"));
         } else {
             SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
             mSendEmail = spf.getString("SendEmail", mSendEmail);
@@ -149,7 +149,7 @@ public class SettingsFragment extends NFragment {
     }
 
     private void save(Context con) {
-        if (!AndrUtils.isAssetsConfig()) {
+        if (!AndrUtils.isAssetsConfig(con)) {
             SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = spf.edit();
             editor.putString("SendEmail", mSendEmail);

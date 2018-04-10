@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -32,6 +31,8 @@ public class SmsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e(TAG, "onReceive");
         SettingsFragment.load(context, EmailMager.getInstance());
+        SmsLocalManager.getInstace().init(context);
+        SmsLocalManager.getInstace().load();
         smsReceived(context, intent);
     }
 
@@ -65,7 +66,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 String content = msg.getMessageBody();
                 String from = msg.getOriginatingAddress();
                 long time = msg.getTimestampMillis();
-                sendToView(msg);
+                sendToView(context,msg);
                 if (!msgMap.containsKey(from)) {
                     StringBuilder sbf = new StringBuilder();
                     sbf.append(context.getString(R.string.from)).append(from).append("\n");
@@ -97,9 +98,11 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     //通知界面显示
-    private void sendToView(SmsMessage s) {
-        if (MainSmsActivity.Inst() != null) {
-            MainSmsActivity.Inst().addSms(new SmsMsg(s));
+    private void sendToView(Context con,SmsMessage s) {
+        SmsMsg smsMsg = new SmsMsg(s);
+        SmsLocalManager.getInstace().add(smsMsg);
+        if (MainSmsActivity.Inst() != null&&!AndrUtils.isBackground(con)) {
+            MainSmsActivity.Inst().addSms(smsMsg);
         }
     }
 

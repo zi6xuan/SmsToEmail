@@ -38,7 +38,7 @@ public class MessageFragment extends NFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(!AndrUtils.isAssetsConfig());
+        setHasOptionsMenu(!AndrUtils.isAssetsConfig(this.getActivity()));
         return inflater.inflate(R.layout.fragment_message, container, false);
     }
 
@@ -53,6 +53,11 @@ public class MessageFragment extends NFragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) this.getActivity()).getSupportActionBar().setTitle(R.string.message);
         mContent = this.getActivity().findViewById(R.id.content);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         ArrayList<SmsMsg> list = SmsLocalManager.getInstace().load();
         for (int i = 0; i < list.size(); i++) {
             mContent.addView(new SmsView(this.getActivity(), list.get(i), i + 1));
@@ -90,7 +95,6 @@ public class MessageFragment extends NFragment {
     }
 
     public void addSms(SmsMsg msg) {
-        SmsLocalManager.getInstace().add(msg);
         int len = SmsLocalManager.getInstace().getCount();
         mContent.addView(new SmsView(this.getActivity(), msg, len));
         if (mContent.getChildCount() > SmsLocalManager.getInstace().getMaxCount()) {
