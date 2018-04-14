@@ -21,12 +21,15 @@ import com.jason.app.smstoemail.utils.AndrUtils;
 
 public class SettingsFragment extends NFragment {
 
-    private String mSendEmail;
-    private String mToEmail;
-    private String mSendServer;
-    private String mPassword;
-    private int mMaxRetry = 50;
-    private int mRetryTimeInterval = 3000;
+    private static String mSendEmail;
+    private static String mToEmail;
+    private static String mSendServer;
+    private static String mPassword;
+    private static int mMaxRetry = 50;
+    private static int mRetryTimeInterval = 3000;
+    private static int mMaxCount = 1000;
+    private static boolean mMerger = false;
+    //
     private TextView mTexRetryInterval;
     private TextView mTexMaxRetry;
     private TextView mTexPassword;
@@ -34,7 +37,7 @@ public class SettingsFragment extends NFragment {
     private TextView mTexEmail;
     private TextView mTexToEmail;
     private TextView mTexMaxCount;
-    private int mMaxCount = 1000;
+    private TextView mTexMerger;
 
     public SettingsFragment() {
     }
@@ -72,6 +75,8 @@ public class SettingsFragment extends NFragment {
         mTexRetryInterval.setText(String.valueOf(mRetryTimeInterval));
         mTexMaxCount = this.getActivity().findViewById(R.id.maxCount);
         mTexMaxCount.setText(String.valueOf(mMaxCount));
+        mTexMerger = this.getActivity().findViewById(R.id.merger);
+        mTexMerger.setText(String.valueOf(mMerger));
         Button btnTest = this.getActivity().findViewById(R.id.btnTest);
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,17 +100,9 @@ public class SettingsFragment extends NFragment {
                 mMaxRetry = Integer.parseInt(mTexMaxRetry.getText().toString());
                 mRetryTimeInterval = Integer.parseInt(mTexRetryInterval.getText().toString());
                 mMaxCount = Integer.parseInt(mTexMaxCount.getText().toString());
+                mMerger = Boolean.parseBoolean(mTexMerger.getText().toString());
                 //
-                EmailMager inst = EmailMager.getInstance();
-                if (inst != null) {
-                    inst.setSendEmail(mSendEmail);
-                    inst.setToEmail(mToEmail);
-                    inst.setSendServer(mSendServer);
-                    inst.setPassword(mPassword);
-                    inst.setMaxRetry(mMaxRetry);
-                    inst.setRetryTime(mRetryTimeInterval);
-                }
-                SmsLocalManager.getInstace().setMaxCount(mMaxCount);
+                setSettings();
                 //
                 save(SettingsFragment.this.getContext());
                 AndrUtils.createSnackbar(R.string.saved, Snackbar.LENGTH_LONG).show();
@@ -113,21 +110,19 @@ public class SettingsFragment extends NFragment {
         });
     }
 
-    public static void load(Context con, EmailMager inst) {
-        if (inst != null) {
-            SettingsFragment sf = new SettingsFragment();
-            sf.load(con);
-            inst.setSendEmail(sf.mSendEmail);
-            inst.setToEmail(sf.mToEmail);
-            inst.setSendServer(sf.mSendServer);
-            inst.setPassword(sf.mPassword);
-            inst.setMaxRetry(sf.mMaxRetry);
-            inst.setRetryTime(sf.mRetryTimeInterval);
-            SmsLocalManager.getInstace().setMaxCount(sf.mMaxCount);
-        }
+    public static void setSettings(){
+        EmailMager inst = EmailMager.getInstance();
+        inst.setSendEmail(mSendEmail);
+        inst.setToEmail(mToEmail);
+        inst.setSendServer(mSendServer);
+        inst.setPassword(mPassword);
+        inst.setMaxRetry(mMaxRetry);
+        inst.setRetryTime(mRetryTimeInterval);
+        SmsLocalManager.getInstace().setMaxCount(mMaxCount);
+        SmsLocalManager.getInstace().setMerger(mMerger);
     }
 
-    private void load(Context con) {
+    public static void load(Context con) {
         if (AndrUtils.isAssetsConfig(con)) {
             mSendEmail = AndrUtils.getConfigIni(con, "mail", "SendEmail");
             mToEmail = AndrUtils.getConfigIni(con, "mail", "ToEmail");
@@ -136,6 +131,7 @@ public class SettingsFragment extends NFragment {
             mMaxRetry = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "MaxRetry"));
             mRetryTimeInterval = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "RetryTimeInterval"));
             mMaxCount = Integer.parseInt(AndrUtils.getConfigIni(con, "normal", "MaxCount"));
+            mMerger = Boolean.parseBoolean(AndrUtils.getConfigIni(con, "normal", "Merger"));
         } else {
             SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
             mSendEmail = spf.getString("SendEmail", mSendEmail);
@@ -145,10 +141,13 @@ public class SettingsFragment extends NFragment {
             mMaxRetry = spf.getInt("MaxRetry", mMaxRetry);
             mRetryTimeInterval = spf.getInt("RetryTimeInterval", mRetryTimeInterval);
             mMaxCount = spf.getInt("MaxCount", mMaxCount);
+            mMerger = spf.getBoolean("Merger", mMerger);
         }
+        //
+        setSettings();
     }
 
-    private void save(Context con) {
+    public static void save(Context con) {
         if (!AndrUtils.isAssetsConfig(con)) {
             SharedPreferences spf = con.getSharedPreferences("settings.xml", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = spf.edit();
@@ -159,6 +158,7 @@ public class SettingsFragment extends NFragment {
             editor.putInt("MaxRetry", mMaxRetry);
             editor.putInt("RetryTimeInterval", mRetryTimeInterval);
             editor.putInt("MaxCount", mMaxCount);
+            editor.putBoolean("Merger", mMerger);
             editor.apply();
         }
     }

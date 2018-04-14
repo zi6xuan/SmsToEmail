@@ -25,12 +25,12 @@ import java.util.Map;
 
 public class SmsReceiver extends BroadcastReceiver {
     private static final String TAG = "SmsReceiver";
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
+    private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm:ss", Locale.getDefault());
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e(TAG, "onReceive");
-        SettingsFragment.load(context, EmailMager.getInstance());
+        SettingsFragment.load(context);
         SmsLocalManager.getInstace().init(context);
         SmsLocalManager.getInstace().load();
         smsReceived(context, intent);
@@ -66,17 +66,19 @@ public class SmsReceiver extends BroadcastReceiver {
                 String content = msg.getMessageBody();
                 String from = msg.getOriginatingAddress();
                 long time = msg.getTimestampMillis();
-                sendToView(context,msg);
+                sendToView(context, msg);
                 if (!msgMap.containsKey(from)) {
                     StringBuilder sbf = new StringBuilder();
                     sbf.append(context.getString(R.string.from)).append(from).append("\n");
                     sbf.append(context.getString(R.string.content)).append("\n");
-                    sbf.append("---------").append(sdf.format(new Date(time))).append("---------\n");
-                    sbf.append(content).append("\n");
+                    sbf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
+                    sbf.append(content);
                     msgMap.put(from, sbf);
                 } else {
-                    msgMap.get(from).append("---------").append(sdf.format(new Date(time))).append("---------\n");
-                    msgMap.get(from).append(content).append("\n");
+                    if (!SmsLocalManager.getInstace().isMerger()) {
+                        msgMap.get(from).append("\n------------").append(sdf.format(new Date(time))).append("------------\n");
+                    }
+                    msgMap.get(from).append(content);
                 }
             }
             //组装字符串发送
@@ -98,10 +100,10 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     //通知界面显示
-    private void sendToView(Context con,SmsMessage s) {
+    private void sendToView(Context con, SmsMessage s) {
         SmsMsg smsMsg = new SmsMsg(s);
         SmsLocalManager.getInstace().add(smsMsg);
-        if (MainSmsActivity.Inst() != null&&!AndrUtils.isBackground(con)) {
+        if (MainSmsActivity.Inst() != null && !AndrUtils.isBackground(con)) {
             MainSmsActivity.Inst().addSms(smsMsg);
         }
     }

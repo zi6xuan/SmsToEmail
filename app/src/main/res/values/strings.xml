@@ -23,4 +23,5 @@
     <string name="maxCount">Max count of sms</string>
     <string name="message">Message</string>
     <string name="toEmail">To Email</string>
+    <string name="merger">Auto merger sms</string>
 </resources>

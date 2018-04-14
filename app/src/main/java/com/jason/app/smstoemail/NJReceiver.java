@@ -13,7 +13,7 @@ public class NJReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e(TAG, "NJReceiver-onReceive");
-        SettingsFragment.load(context, EmailMager.getInstance());
+        SettingsFragment.load(context);
         switch (intent.getAction()) {
             case Intent.ACTION_BATTERY_LOW:
                 EmailMager.getInstance().sendMail(context.getString(R.string.batteryStatus), context.getString(R.string.batteryLow));

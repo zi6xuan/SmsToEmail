@@ -8,6 +8,7 @@
   "normal": {
     "MaxRetry": "10",
     "RetryTimeInterval": "30000",
-    "MaxCount": "1000"
+    "MaxCount": "1000",
+    "Merger":"true"
   }
 }

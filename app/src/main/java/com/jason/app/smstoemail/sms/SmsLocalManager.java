@@ -20,6 +20,7 @@ public class SmsLocalManager {
     //
     private Context mContext = null;
     private JSONArray mJsonArray = new JSONArray();
+    private boolean mMerger=false;
 
     public static SmsLocalManager getInstace() {
         if (mInstance == null) {
@@ -92,5 +93,13 @@ public class SmsLocalManager {
 
     public int getMaxCount() {
         return mMaxCount;
+    }
+
+    public void setMerger(boolean merger) {
+        this.mMerger = merger;
+    }
+
+    public boolean isMerger() {
+        return mMerger;
     }
 }

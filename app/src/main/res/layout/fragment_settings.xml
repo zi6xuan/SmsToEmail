@@ -24,8 +24,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/sendEmail"
@@ -43,8 +42,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/sendServer"
@@ -62,8 +60,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/toEmail"
@@ -81,8 +78,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/password"
@@ -120,8 +116,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/maxRetry"
@@ -139,8 +134,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/retryTimeInterval"
@@ -158,8 +152,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/src_margin">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/maxCount"
@@ -174,6 +167,19 @@
                         android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
+
+                <Switch
+                    android:id="@+id/merger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/src_margin"
+                    android:layout_marginStart="@dimen/src_margin"
+                    android:layout_marginEnd="@dimen/src_margin"
+                    android:checked="false"
+                    android:hint="@string/merger"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
             </LinearLayout>
 
             <Button

@@ -23,4 +23,5 @@
     <string name="maxCount">最大短信数量</string>
     <string name="message">消息</string>
     <string name="toEmail">送达邮箱</string>
+    <string name="merger">自动合并短信</string>
 </resources>

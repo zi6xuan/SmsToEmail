@@ -34,6 +34,6 @@ public class SmsView extends RelativeLayout {
         TextView tex3 = findViewById(R.id.texForm);
         tex3.setText(msg.getOriginatingAddress());
         TextView tex4 = findViewById(R.id.texCont);
-        tex4.setText(msg.getMessageBody());
+        tex4.setText(msg.getBody());
     }
 }

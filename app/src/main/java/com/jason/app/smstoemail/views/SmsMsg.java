@@ -33,8 +33,12 @@ public class SmsMsg {
         return originatingAddress;
     }
 
-    public String getMessageBody() {
+    public String getBody() {
         return messageBody;
+    }
+
+    public void setBody(String body) {
+        this.messageBody = body;
     }
 
     public JSONObject toJson() {
