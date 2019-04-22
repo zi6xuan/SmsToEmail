@@ -61,33 +61,31 @@ public class SmsReceiver extends BroadcastReceiver {
                 }
             });
             //分类合并,排版
-            Map<String, StringBuilder> msgMap = new HashMap<>();
+            StringBuilder contbuf = null;
             for (SmsMessage msg : messages) {
                 String content = msg.getMessageBody();
                 String from = msg.getOriginatingAddress();
                 long time = msg.getTimestampMillis();
-                sendToView(context, msg);
-                if (!msgMap.containsKey(from)) {
+                if (!SmsLocalManager.getInstace().isMerger()) {
+                    //逐条显示
+                    sendToView(context, new SmsMsg(msg));
+                }
+                if (contbuf == null) {
+                    contbuf = new StringBuilder();
                     StringBuilder sbf = new StringBuilder();
                     sbf.append(context.getString(R.string.from)).append(from).append("\n");
                     sbf.append(context.getString(R.string.content)).append("\n");
                     sbf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
                     sbf.append(content);
-                    msgMap.put(from, sbf);
+                    contbuf.append(sbf.toString()).append("\n");
                 } else {
                     if (!SmsLocalManager.getInstace().isMerger()) {
-                        msgMap.get(from).append("\n------------").append(sdf.format(new Date(time))).append("------------\n");
+                        contbuf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
                     }
-                    msgMap.get(from).append(content);
+                    contbuf.append(content);
                 }
             }
             //组装字符串发送
-            StringBuilder contbuf = new StringBuilder();
-            for (StringBuilder v : msgMap.values()) {
-                contbuf.append("----------------------------------------");
-                contbuf.append("\n").append(v).append("\n");
-                contbuf.append("----------------------------------------");
-            }
             Log.e(TAG, "v=\n" + contbuf.toString());
             boolean isSuc = EmailMager.getInstance().sendMail(context.getString(R.string.smsTitle), contbuf.toString());
             if (isSuc) {
@@ -96,12 +94,22 @@ public class SmsReceiver extends BroadcastReceiver {
                 sendTips(context.getString(R.string.sendedFailed));
                 Log.i(TAG, context.getString(R.string.sendedFailed));
             }
+            //send to view
+            if (SmsLocalManager.getInstace().isMerger() && messages.length > 0) {
+                //合并显示
+                SmsMessage msg = messages[0];
+                if (msg != null) {
+                    String from = msg.getDisplayOriginatingAddress();
+                    long time = msg.getTimestampMillis();
+                    sendToView(context, new SmsMsg(time, from, contbuf.toString()));
+                }
+            }
         }
     }
 
     //通知界面显示
-    private void sendToView(Context con, SmsMessage s) {
-        SmsMsg smsMsg = new SmsMsg(s);
+    private void sendToView(Context con, SmsMsg smsMsg) {
+//        SmsMsg smsMsg = new SmsMsg(s);
         SmsLocalManager.getInstace().add(smsMsg);
         if (MainSmsActivity.Inst() != null && !AndrUtils.isBackground(con)) {
             MainSmsActivity.Inst().addSms(smsMsg);
