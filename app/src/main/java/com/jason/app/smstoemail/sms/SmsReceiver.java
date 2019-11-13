@@ -74,14 +74,14 @@ public class SmsReceiver extends BroadcastReceiver {
                     contbuf = new StringBuilder();
                     StringBuilder sbf = new StringBuilder();
                     sbf.append(context.getString(R.string.from)).append(from).append("\n");
-                    sbf.append(context.getString(R.string.content)).append("\n");
-                    sbf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
+//                    sbf.append(context.getString(R.string.content)).append("\n");
+//                    sbf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
                     sbf.append(content);
                     contbuf.append(sbf.toString()).append("\n");
                 } else {
-                    if (!SmsLocalManager.getInstace().isMerger()) {
-                        contbuf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
-                    }
+//                    if (!SmsLocalManager.getInstace().isMerger()) {
+//                        contbuf.append("------------").append(sdf.format(new Date(time))).append("------------\n");
+//                    }
                     contbuf.append(content);
                 }
             }
