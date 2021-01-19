@@ -1,7 +1,7 @@
 # SmsToEmail &middot; [GooglePlay](https://play.google.com/store/apps/details?id=com.jason.app.smstoemail)
 [English manual](https://github.com/zi6xuan/SmsToEmail/blob/master/README-en.md)
 
-Android 转发短信到指定Email(Android Forward SMS to Specified Email)
+Android 转发短信到指定Email
 
 **本程序支持以下功能：**
 - 1.转发所有新接收短信到指定Email，只能转发新短信，并且是已经将本程序设置为默认短信应用（Android4.4以后只有默认短信程序才可以监听短信）
