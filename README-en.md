@@ -1,4 +1,6 @@
 # SmsToEmail &middot; [GooglePlay](https://play.google.com/store/apps/details?id=com.jason.app.smstoemail)
+[中文说明](https://github.com/zi6xuan/SmsToEmail/blob/master/README.md)
+
 Android Forward SMS to Specified Email (Android Forward SMS to Specified Email)
 
 **This program supports the following functions:**
