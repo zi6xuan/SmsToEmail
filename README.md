@@ -1,4 +1,4 @@
-# SmsToEmail &middot; [GooglePlay](https://play.google.com/store/apps/details?id=com.jason.app.smstoemail)
+# SmsToEmail &middot;
 [English manual](https://github.com/zi6xuan/SmsToEmail/blob/master/README-en.md)
 
 Android 转发短信到指定Email
