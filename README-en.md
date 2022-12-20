@@ -12,3 +12,12 @@ Android Forward SMS to Specified Email
 
 **The following are the actual application scenarios of this program:**
 - You can insert the mobile phone card into the new generation mobile phone and put it at home, connect to wifi, it is best not to plug in the power source all the time to avoid accidents, this program has the battery status reminder, the battery is low, the battery is full, the power is connected, and the power is disconnected. Reminder, when you need to receive SMS from your mobile phone card, it is best to open the mailbox to refresh in real time to prevent excessive delay
+
+```
+  "mail": {
+    "SendEmail": "xxx@163.com",   //own email address
+    "ToEmail": "xxx@163.com",     //target email address
+    "SendServer": "smtp.163.com", //own email server
+    "Password": "xxxx"            //own email password
+  },
+  ```
